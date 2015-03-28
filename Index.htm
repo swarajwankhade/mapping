@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html5> 
+
+<html>
+<head>
+    <title>G-Earth Game</title>
+    <script type="text/javascript" src="https://www.google.com/jsapi"> </script>
+    <script type="text/javascript" src="Actions.js"> </script>
+</head>
+<body>
+	<table align="center">
+		<tr>
+			<th colspan="2" style="padding: 10px; border-style: double; border-color: #000080; font-size: 25px; font-weight: 100; font-style: italic; color: #3333CC; height: 33px; tahoma ;">
+				Structural Mapping Game
+			</th>
+		</tr>
+		<tr>
+			<td width="200px" valign="top" style="padding: 5px; border-style: none double double double; border-color: #000080;">
+				<div style="padding: 5px; font-family: Verdana, Geneva, Tahoma, sans-serif; font-size: 12px; color: #000066">
+					<input type="button" id="createm" onclick="createModel()" value="Create Model"><br><br><br>
+					Strike =<label id="lblHeading">0</label>
+					<br>0<input type="range" name="barHeading" min="0" max="360" value="0" step="10" onchange="changeHeading(this.value)">360<br><br><br>
+					Dip =<label id="lblTilt">0</label>
+					<br>0<input type="range" name="barTilt" min="0" max="360" value="0" step="10" onchange="changeTilt(this.value)">360<br><br><br>
+					Roll =<label id="lblRoll">0</label>
+					<br>0<input type="range" name="barRoll" min="0" max="360" value="0" step="10" onchange="changeRoll(this.value)">360<br><br><br>
+					Scale =<label id="lblScale">0</label>
+					<br>0<input type="range" name="barScale" min="0" max="50" value="0" step="5" onchange="changeScale(this.value)">50<br><br><br>
+					Altitude =<label id="lblAltitude">0</label>
+					<br>0<input type="range" name="barAlt" min="0" max="10000" value="0" step="100" onchange="changeAltitude(this.value)">10000<br><br><br>
+					<div style="padding: 5px; border-style: double none none none; border-color: #000080; font-family: Verdana, Geneva, Tahoma, sans-serif; font-size: 12px; color: #000066;">
+					Navigation <br><br>
+					<label>Longitude : (-180 to 180)</label><br>
+					<input type="text" id="lng" style="width: 100px"><br>
+					<label>Latitude : (-90 to 90)</label><br>	
+					<input type="text" id="lat" style="width: 100px"><br>
+					<input type="button" id="btnNavigate" onclick="navigate()" value="Navigate">
+					</div>
+				</div><br><br>
+			</td>
+			<td>
+				<div id="map3d" style="height: 700px; width: 800px;"></div>
+			</td>
+		</tr>
+	</table>
+</body>
+</html>

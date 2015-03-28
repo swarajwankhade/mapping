@@ -1,0 +1,136 @@
+<!DOCTYPE html5> 
+
+<html>
+<head>
+    <title>Mapping Tool</title>
+    <script type="text/javascript" src="https://www.google.com/jsapi"> </script>
+    <script type="text/javascript" src="MappingActions.js"> </script>
+</head>
+<body>
+	<table align="center">
+		<tr>
+			<th colspan="3" style="padding: 10px; border-style: double; border-color: #000080; font-size: 25px; font-weight: 100; font-style: italic; color: #3333CC; height: 25px; tahoma ;">
+				Google Earth - Mapping Tool
+			</th>
+		</tr>
+		<tr>
+			<td width="100px" valign="top" style="padding: 10px; border-style: none none double double; border-color: #000080;">
+				<input id="btnOptions" type="button" style="width: 100px; height: 30px" value=" Options " onclick="showPanel(1)"/><br /><br />
+				<input id="btnFrame" type="button" style="width: 100px; height: 30px" value=" Frame Tool " onclick="showPanel(2)"/><br /><br />
+                <input id="bthPath" type="button" style="width: 100px; height: 30px" value=" Path Tool " onclick="showPanel(3)"/><br /><br />
+                <input id="btnPolygon" type="button" style="width: 100px; height: 30px" value=" Polygon Tool " onclick="showPanel(4)"/><br /><br />
+				<input id="btnLine" type="button" style="width: 100px; height: 30px" value=" Line Tool " onclick="showPanel(5)"/><br /><br />
+			</td>
+			<td width="210px" valign="top" style="padding: 5px; border-style: none double double double; border-color: #000080;">
+				<div id="Panel1" style="padding: 5px; font-family: Verdana, Geneva, Tahoma, sans-serif; font-size: 12px; color: #000066">
+                    <label><u>Globe Options</u></label><br /><br />
+						<input type="checkbox" id="navcontrol" onclick="changeOptions(event,1)" checked="true"> <label> Navigation Controls</label><br>
+						<input type="checkbox" id="borderlayer" onclick="changeOptions(event,2)"> <label> Borders</label><br>
+						<input type="checkbox" id="roadslayer" onclick="changeOptions(event,3)"> <label> Roads</label><br>
+						<input type="checkbox" id="terrainlayer" onclick="changeOptions(event,4)"> <label> Terrain</label><br>
+						<input type="checkbox" id="3dlayer" onclick="changeOptions(event,5)"> <label> 3D Layer</label><br>
+						<input type="checkbox" id="gridlayer" onclick="changeOptions(event,6)" checked="true"> <label> Grid</label><br>
+						<input type="checkbox" id="statuslayer" onclick="changeOptions(event,7)"> <label> Status Bar</label><br>
+						<input type="checkbox" id="scalelayer" onclick="changeOptions(event,8)"> <label> Map Scale</label><br>
+						<input type="checkbox" id="atmospherelayer" onclick="changeOptions(event,9)"> <label> Atmosphere</label><br>					
+						<input type="checkbox" id="overviewlayer" onclick="changeOptions(event,10)"> <label> Overview Map</label><br>
+                </div>
+                <div id="Panel2" style="padding: 5px; font-family: Verdana, Geneva, Tahoma, sans-serif; font-size: 12px; color: #000066; display: none;">
+                    <label><u>Frame Tool</u></label><br /><br />
+                    <table align="left" style="font-family: Verdana, Geneva, Tahoma, sans-serif; font-size: 12px; color: #000066">
+                        <tr><td>North</td><td>&nbsp;&nbsp;<input id="North" type="text" style="width: 50px" /></td><td>(-90 to 90)</td></tr>
+						<tr><td>South</td><td>&nbsp;&nbsp;<input id="South" type="text" style="width: 50px" /></td><td>(-90 to 90)</td></tr>
+						<tr><td>East</td><td>&nbsp;&nbsp;<input id="East" type="text" style="width: 50px" /></td><td>(-180 to 180)</td></tr>
+                        <tr><td>West</td><td>&nbsp;&nbsp;<input id="West" type="text" style="width: 50px" /></td><td>(-180 to 180)</td></tr>
+                    </table>                     
+                    <br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+                    <input id="btnCreateFrame" type="button"  style="width: 100px; height: 30px" value=" Create " onclick="createFrame()"/>
+					<br /><br />
+                    <input id="btnDragFrame" type="button"  style="width: 100px; height: 30px" value=" Drag " onclick="dragFrame()"/>
+					<br /><br />
+                    <input id="btnResizeFrame" type="button"  style="width: 100px; height: 30px" value=" Resize " onclick="resizeFrame()"/>
+					<br /><br />
+                    <input id="btnSubmitFrame" type="button"  style="width: 100px; height: 30px" value=" Submit " onclick="submitFrame()"/>
+                </div>
+                <div id="Panel3" style="padding: 5px; font-family: Verdana, Geneva, Tahoma, sans-serif; font-size: 12px; color: #000066; display: none;">
+                    <label><u>Path Tool</u></label><br /><br />
+					<label>Path Name :</label><br />
+                    <input id="txtPathName" type="text"/><br /><br />
+					<label>Line Width :</label><br />
+					<select id="lstPathWidth">
+						<option selected="selected">1</option>
+						<option>2</option>
+						<option>3</option>
+						<option>4</option>
+						<option>5</option>
+						<option>6</option>
+						<option>7</option>
+						<option>8</option>
+						<option>9</option>
+					</select>
+					<br /><br />
+					<label>Line Color :</label><br />
+					<select id="lstPathColor">
+						<option selected="selected">ffff0000</option>
+						<option>ff000000</option>
+						<option>ffa80070</option>
+						<option>ffffaa00</option>
+						<option>ff13ffff</option>
+						<option>ff072da8</option>
+						<option>ff0dc547</option>
+						<option>ffff72d5</option>
+						<option>ff00aaaa</option>
+						<option>ff8cc6ff</option>
+					</select>
+					<br /><br />
+					<input id="btnCreatePath" type="button" style="width: 100px; height: 30px" value=" Create Path " onclick="createPath()"/><br /><br />
+					<label>List of paths :</label><br /><br />
+					<select id="lstPaths" size ="10" style="width: 200px">
+					</select>
+					<br /><br />
+					<input id="btnDelPath" type="button" style="width: 100px; height: 30px" value=" Delete Path " onclick="deletePath()"/>
+					<br /><br />
+					<input id="btnStartPath" type="button" style="width: 100px; height: 30px" value=" Start Path " onclick="startPath()"/>
+					<br /><br /> 
+					<input id="btnStopPath" type="button" style="width: 100px; height: 30px" value=" Stop Path " onclick="stopPath()"/>
+                </div>
+                <div id="Panel4" style="padding: 5px; font-family: Verdana, Geneva, Tahoma, sans-serif; font-size: 12px; color: #000066; display: none;">
+                    <label><u>Polygon Tool</u></label><br /><br />
+					<label>Polygon Name :</label><br />
+                    <input id="txtPolygonName" type="text"/><br /><br />
+					<label>Polygon Color :</label><br />
+					<select id="lstPolygonColor">
+						<option selected="selected">ffff0000</option>
+						<option>ff000000</option>
+						<option>ffa80070</option>
+						<option>ffffaa00</option>
+						<option>ff13ffff</option>
+						<option>ff072da8</option>
+						<option>ff0dc547</option>
+						<option>ffff72d5</option>
+						<option>ff00aaaa</option>
+						<option>ff8cc6ff</option>
+					</select>
+					<br /><br />
+					<input id="btnCreatePolygon" type="button" style="width: 120px; height: 30px" value=" Create Polygon " onclick="createPolygon()"/><br /><br />
+					<label>List of polygons :</label><br /><br />
+					<select id="lstPolygons" size ="10" style="width: 200px">
+					</select>
+					<br /><br />
+					<input id="btnDelPolygon" type="button" style="width: 120px; height: 30px" value=" Delete Polygon " onclick="deletePolygon()"/>
+					<br /><br />
+					<input id="btnStartPolygon" type="button" style="width: 120px; height: 30px" value=" Start Polygon " onclick="startPolygon()"/>
+					<br /><br /> 
+					<input id="btnStopPolygon" type="button" style="width: 120px; height: 30px" value=" Stop Polygon " onclick="stopPolygon()"/>
+				</div>
+				<div id="Panel5" style="padding: 5px; font-family: Verdana, Geneva, Tahoma, sans-serif; font-size: 12px; color: #000066; display: none;">
+                    <label><u>Line Tool</u></label><br /><br />
+                </div>
+			</td>
+			<td>
+				<div id="map3d" style="height: 700px; width: 800px;"></div>
+			</td>
+		</tr>
+	</table>
+</body>
+</html>
